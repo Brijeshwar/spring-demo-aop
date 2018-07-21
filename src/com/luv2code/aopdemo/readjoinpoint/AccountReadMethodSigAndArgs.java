@@ -14,7 +14,11 @@ public class AccountReadMethodSigAndArgs {
 	private String serviceCode;
 	
 	//add a new method: findAccounts()
-	public List<Account> findAccounts() {
+	public List<Account> findAccounts(boolean tripWire) {
+		if(tripWire) {
+			throw new RuntimeException("No soup for you!!!");
+		}
+		
 		List<Account> myAccounts = new ArrayList<>();
 		
 		myAccounts.add(new Account("John", "Silver"));
@@ -23,6 +27,17 @@ public class AccountReadMethodSigAndArgs {
 		
 		return myAccounts;
 	}
+	
+	//add a new method: findAccounts()
+//	public List<Account> findAccounts(boolean tripWire) {
+//		List<Account> myAccounts = new ArrayList<>();
+//		
+//		myAccounts.add(new Account("John", "Silver"));
+//		myAccounts.add(new Account("Madhu", "Platinum"));
+//		myAccounts.add(new Account("Luca", "Gold"));
+//		
+//		return myAccounts;
+//	}
 	
 	public void addAccount(Account account, boolean isTrue) {
 		System.out.println(getClass() + ":DOING MY DB WORK: ADDING AN ACCOUNT USING POINTCUT COMBINED ORDER");
