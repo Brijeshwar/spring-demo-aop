@@ -3,6 +3,7 @@ package com.luv2code.aopdemo.readjoinpoint;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,6 +19,12 @@ import com.luv2code.aopdemo.Account;
 @Order(2)
 public class MyLoggingDemoReadMethodAndSigAspect {
 
+	@After("execution(* com.luv2code.aopdemo.readjoinpoint.AccountReadMethodSigAndArgs.findAccounts(..))")
+	public void afterFinallyFindAccountAdvice(JoinPoint theJoinPoint) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @After (finally) on the method: " + method);
+	}
+	
 	// add a new advice for @AfterReturning on the findAccounts method
 	@AfterReturning(pointcut = "execution(* com.luv2code.aopdemo.readjoinpoint.AccountReadMethodSigAndArgs.findAccounts(..))"
 			, returning = "result")
@@ -30,6 +37,8 @@ public class MyLoggingDemoReadMethodAndSigAspect {
 		// let's post-process the data ... let's modify it
 		// convert account names to uppercase
 		converAccountNameToUpperCase(result);
+		
+		System.out.println("\n=====>>> Result is: " + result);
 	}
 
 	// add a new advice for @AfterThrowing on the findAccounts method
